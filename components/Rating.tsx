@@ -35,7 +35,7 @@ const Rating: React.FC<RatingProps> = ({ onRate }) => {
             stroke="currentColor"
             strokeWidth="1"
             style={{
-              color: (hoverRating >= star || currentRating >= star) ? '#F59E0B' : '#4B5563' /* amber-500 and gray-600 */
+              color: (hoverRating >= star || currentRating >= star) ? '#F59E0B' : '#D1D5DB' /* amber-500 and gray-300 */
             }}
           >
             <path

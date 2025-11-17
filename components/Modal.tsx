@@ -12,11 +12,11 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   return (
     <div 
-      className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fade-in"
+      className="fixed inset-0 bg-black/30 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="relative bg-gradient-to-br from-gray-900 to-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl shadow-black/40 w-full max-w-md m-4 animate-slide-up"
+        className="relative bg-white border border-black/10 rounded-2xl shadow-2xl shadow-black/20 w-full max-w-md m-4 animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-6">
@@ -24,7 +24,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         </div>
         <button 
           onClick={onClose} 
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200"
+          className="absolute top-4 right-4 text-gray-500 hover:text-black transition-colors duration-200"
           aria-label="Fechar modal"
         >
           <XIcon />
