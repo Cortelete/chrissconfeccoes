@@ -90,29 +90,29 @@ const App: React.FC = () => {
         <div className="w-full bg-white/70 backdrop-blur-2xl border border-black/5 rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/10">
           <header className="flex flex-col items-center text-center">
             <div 
-              className="cursor-pointer group mb-4" 
+              className="cursor-pointer group mb-4 w-full"
               onClick={() => openModal(ModalType.QuemSomos)}
               aria-label="Saiba mais sobre a Chriss Confecções"
               role="button"
             >
-              <div className="border-t-2 border-l-2 border-r-2 border-gray-900 pt-5 pb-2 px-6">
+              <div className="border-t-2 border-l-2 border-r-2 border-gray-900 pt-5 pb-2 px-4 sm:px-6">
                 <h1 
-                  className="text-7xl md:text-8xl font-normal text-gray-900 tracking-[0.15em] group-hover:text-black transition-colors duration-300" 
+                  className="text-6xl sm:text-7xl md:text-8xl font-normal text-gray-900 tracking-[0.15em] group-hover:text-black transition-colors duration-300" 
                   style={{ fontFamily: 'Questrial, sans-serif' }}
                 >
                   CHRISS
                 </h1>
               </div>
 
-              <div className="flex items-center justify-between w-full -mt-[2px] px-1">
-                <div className="w-[28%] h-[2px] bg-gray-900"></div>
+              <div className="flex items-center w-full -mt-[2px]">
+                <div className="flex-1 h-[2px] bg-gray-900"></div>
                 <p 
-                  className="text-lg md:text-xl tracking-[0.25em] text-gray-500 group-hover:text-gray-700 transition-colors duration-300"
+                  className="shrink-0 px-3 text-base sm:text-lg md:text-xl tracking-[0.25em] text-gray-500 group-hover:text-gray-700 transition-colors duration-300"
                   style={{ fontFamily: 'Questrial, sans-serif' }}
                 >
                   CONFECÇÕES
                 </p>
-                <div className="w-[28%] h-[2px] bg-gray-900"></div>
+                <div className="flex-1 h-[2px] bg-gray-900"></div>
               </div>
             </div>
             <p className="text-sm md:text-base text-gray-600 mt-2 max-w-xs font-normal">
