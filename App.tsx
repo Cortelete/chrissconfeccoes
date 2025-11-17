@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { ModalType } from './types';
-import Modal from './components/Modal';
+import { Modal } from './components/Modal';
 import LinkButton from './components/LinkButton';
 import CoinLogo from './components/CoinLogo';
 import Rating from './components/Rating';
-import { InstagramIcon, MapPinIcon, InfoIcon, StarIcon, WhatsAppIcon } from './components/icons';
+import { InstagramIcon, MapPinIcon, InfoIcon, StarIcon, WhatsAppIcon, ClockIcon } from './components/icons';
 
 const App: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ModalType | null>(null);
@@ -45,7 +45,7 @@ const App: React.FC = () => {
     };
 
     return (
-      <div className="flex flex-col gap-4 text-white p-2">
+      <div className="flex flex-col gap-4 text-white">
         <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400 text-center">Faça seu Orçamento</h3>
         <p className="text-center text-slate-400 text-sm mb-4">Preencha os campos abaixo para agilizar seu atendimento.</p>
         <input type="text" placeholder="Seu Nome" value={nome} onChange={(e) => setNome(e.target.value)} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-slate-500 transition-all" />
@@ -69,7 +69,7 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 text-white p-2 items-center">
+        <div className="flex flex-col gap-4 text-white items-center">
             <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400">Contato do Desenvolvedor</h3>
             <p className="text-center text-sm text-slate-400">Esta mensagem será enviada para o desenvolvedor do site.</p>
             <a href="https://www.instagram.com/inteligenciarte.ia" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition-colors font-medium">
@@ -91,10 +91,10 @@ const App: React.FC = () => {
         <div className="w-full bg-black/20 backdrop-blur-xl border border-white/5 rounded-2xl p-6 md:p-8 shadow-2xl shadow-white/5">
           <header className="flex flex-col items-center text-center">
             <CoinLogo onZoomComplete={() => openModal(ModalType.QuemSomos)} />
-            <h1 className="text-3xl md:text-4xl font-extrabold mt-4 animate-gradient bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-400">
+            <h1 className="text-3xl md:text-4xl font-bold mt-4 animate-gradient bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-400">
               Chriss Confecções
             </h1>
-            <p className="text-sm md:text-base text-slate-400 mt-2 max-w-xs font-light">
+            <p className="text-sm md:text-base text-slate-300 mt-2 max-w-xs font-normal">
               Uniformes escolares e empresariais, jalecos, jaquetas e personalizados.
             </p>
           </header>
@@ -103,6 +103,7 @@ const App: React.FC = () => {
             <LinkButton icon={<InfoIcon />} text="Quem Somos?" onClick={() => openModal(ModalType.QuemSomos)} />
             <LinkButton icon={<InstagramIcon />} text="Instagram" onClick={() => window.open('https://www.instagram.com/chrisconfc/', '_blank')} />
             <LinkButton icon={<MapPinIcon />} text="Localização" onClick={() => openModal(ModalType.Localizacao)} />
+            <LinkButton icon={<ClockIcon />} text="Horário de Funcionamento" onClick={() => openModal(ModalType.Horario)} />
             <LinkButton icon={<WhatsAppIcon />} text="Faça seu Orçamento" onClick={() => openModal(ModalType.Orcamento)} />
             <LinkButton icon={<StarIcon />} text="Avalie nosso Atendimento" onClick={() => openModal(ModalType.Avaliacao)} />
           </section>
@@ -117,7 +118,7 @@ const App: React.FC = () => {
       
       {/* Modals */}
       <Modal isOpen={activeModal === ModalType.QuemSomos} onClose={closeModal}>
-        <div className="p-2 text-white text-center">
+        <div className="text-white text-center">
             <h3 className="text-3xl font-bold mb-4 animate-gradient bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-500">Quem Somos</h3>
             <p className="text-slate-300 mb-6">Há mais de <span className="font-bold text-white">30 anos</span> produzindo uniformes e peças personalizadas em Ponta Grossa.</p>
             <div className="space-y-4 text-left">
@@ -133,7 +134,7 @@ const App: React.FC = () => {
       </Modal>
 
       <Modal isOpen={activeModal === ModalType.Localizacao} onClose={closeModal}>
-        <div className="p-2 md:p-4 text-white text-center w-full max-w-lg">
+        <div className="text-white text-center w-full max-w-lg">
           <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400">Nossa Localização</h3>
           <p className="mb-4 text-sm text-slate-300">Rua Barão do Ponce, 120 - Uvaranas, Ponta Grossa - PR</p>
           <div className="aspect-video w-full rounded-lg overflow-hidden border-2 border-white/10 shadow-lg">
@@ -144,13 +145,33 @@ const App: React.FC = () => {
           </a>
         </div>
       </Modal>
+
+      <Modal isOpen={activeModal === ModalType.Horario} onClose={closeModal}>
+        <div className="text-white text-center">
+            <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400">Horário de Funcionamento</h3>
+            <div className="text-slate-300 space-y-2">
+                <div className="flex justify-between border-b border-slate-700/50 py-2">
+                    <span>Segunda a Sexta</span>
+                    <span className="font-semibold text-white">08:00 - 18:00</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-700/50 py-2">
+                    <span>Sábado</span>
+                    <span className="font-semibold text-white">08:00 - 12:00</span>
+                </div>
+                <div className="flex justify-between py-2">
+                    <span>Domingo</span>
+                    <span className="font-semibold text-slate-500">Fechado</span>
+                </div>
+            </div>
+        </div>
+      </Modal>
       
       <Modal isOpen={activeModal === ModalType.Orcamento} onClose={closeModal}>
         <OrcamentoModalContent />
       </Modal>
 
       <Modal isOpen={activeModal === ModalType.Avaliacao} onClose={closeModal}>
-        <div className="p-4 text-white text-center">
+        <div className="text-white text-center">
             <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400">Sua opinião é importante!</h3>
             <p className="text-slate-400 mb-6 text-sm">Como foi sua experiência conosco?</p>
             <Rating onRate={handleRatingSelect} />
@@ -158,7 +179,7 @@ const App: React.FC = () => {
       </Modal>
 
       <Modal isOpen={activeModal === ModalType.FeedbackRuim} onClose={closeModal}>
-        <div className="p-4 text-white text-center">
+        <div className="text-white text-center">
           <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400">Que pena!</h3>
           <p className="text-slate-400 mb-6 text-sm">Conte-nos como podemos melhorar. Sua opinião é valiosa.</p>
           <form action="https://formsubmit.co/SEU_EMAIL_AQUI" method="POST" className="flex flex-col gap-4">

@@ -5,5 +5,6 @@ export enum ModalType {
   Orcamento = 'ORCAMENTO',
   Avaliacao = 'AVALIACAO',
   FeedbackRuim = 'FEEDBACK_RUIM',
-  Developer = 'DEVELOPER'
+  Developer = 'DEVELOPER',
+  Horario = 'HORARIO'
 }

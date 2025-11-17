@@ -7,7 +7,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
@@ -16,10 +16,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div 
-        className="relative bg-gradient-to-br from-gray-900 to-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl shadow-black/40 w-full max-w-sm m-4 animate-slide-up"
+        className="relative bg-gradient-to-br from-gray-900 to-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl shadow-black/40 w-full max-w-md m-4 animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-4 md:p-6">
+        <div className="p-6">
           {children}
         </div>
         <button 
@@ -33,5 +33,3 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     </div>
   );
 };
-
-export default Modal;
