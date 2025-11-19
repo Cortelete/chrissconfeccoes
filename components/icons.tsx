@@ -54,3 +54,40 @@ export const XIcon: React.FC = () => (
     <line x1="6" y1="6" x2="18" y2="18"></line>
   </svg>
 );
+
+// New Icons
+export const DiamondIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg className={className || iconProps.className} strokeWidth={iconProps.strokeWidth} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M6 3h12l4 6-10 13L2 9z"></path>
+        <path d="M11 3v6h-5"></path>
+        <path d="M13 3v6h5"></path>
+    </svg>
+);
+
+export const UsersIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg className={className || iconProps.className} strokeWidth={iconProps.strokeWidth} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+    </svg>
+);
+
+export const ScissorsIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg className={className || iconProps.className} strokeWidth={iconProps.strokeWidth} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="6" cy="6" r="3"></circle>
+        <circle cx="6" cy="18" r="3"></circle>
+        <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+        <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+        <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+    </svg>
+);
+
+export const TruckIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg className={className || iconProps.className} strokeWidth={iconProps.strokeWidth} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <rect x="1" y="3" width="15" height="13"></rect>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+    </svg>
+);
