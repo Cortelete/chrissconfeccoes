@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { ModalType } from './types';
 import { Modal } from './components/Modal';
@@ -95,16 +94,27 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-[100dvh] w-full flex flex-col items-center justify-center p-3 md:p-4 text-gray-900 overflow-x-hidden">
-      <div className="fixed inset-0 bg-gradient-to-br from-gray-100 via-white to-gray-100 animate-gradient -z-10"></div>
+    <div className="relative bg-slate-50 min-h-[100dvh] w-full flex flex-col items-center justify-center p-3 md:p-4 text-gray-900 overflow-hidden">
       
+      {/* Animated Elegant Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        {/* Silver Blob (Left Top) */}
+        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-gray-200/60 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        {/* Gold/Champagne Blob (Right Bottom) */}
+        <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-amber-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+        {/* Soft White/Silver Blob (Center) */}
+        <div className="absolute top-[40%] left-[30%] w-80 h-80 bg-slate-200/40 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
+      </div>
+
       <main className="w-full max-w-md mx-auto flex flex-col items-center justify-center space-y-4 z-10 animate-slide-up">
-        <div className="relative w-full bg-white/70 backdrop-blur-2xl border border-black/5 rounded-2xl shadow-2xl shadow-black/10 overflow-hidden ring-1 ring-white/40">
-          {/* Elegant Reflection Effect (Shimmer) */}
+        <div className="relative w-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden ring-1 ring-black/5">
+          
+          {/* Internal Shimmer/Reflection */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-             <div className="absolute top-0 left-0 w-1/2 h-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-shimmer"></div>
+             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-60"></div>
+             {/* Moving diagonal shine */}
+             <div className="absolute top-0 left-0 w-1/2 h-[200%] bg-gradient-to-r from-transparent via-white/60 to-transparent transform -skew-x-12 animate-shimmer"></div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-white/10 to-transparent opacity-40 pointer-events-none z-0"></div>
 
           <div className="relative z-10 cursor-pointer" onClick={() => openModal(ModalType.QuemSomos)}>
             <img
@@ -142,7 +152,7 @@ const App: React.FC = () => {
       <Modal isOpen={activeModal === ModalType.QuemSomos} onClose={closeModal}>
         <div className="text-gray-900 flex flex-col items-center text-center px-1">
             <h3 className="text-2xl md:text-3xl font-bold mb-2 font-serif-display text-gray-800">Quem Somos</h3>
-            <div className="w-16 h-0.5 bg-gray-300 mb-5"></div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-5"></div>
             
             <p className="text-gray-600 mb-6 font-light leading-relaxed max-w-sm text-sm md:text-base">
                 Há mais de <span className="font-semibold text-gray-900">30 anos</span> transformando tecidos em uniformes e peças personalizadas com excelência em Ponta Grossa.
@@ -151,7 +161,7 @@ const App: React.FC = () => {
             <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-full">
                 {/* Item 1 */}
                 <div className="flex flex-col items-center gap-2">
-                    <div className="p-2.5 bg-gray-50 rounded-full mb-0.5 shadow-sm">
+                    <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <DiamondIcon className="w-5 h-5 text-gray-700" />
                     </div>
                     <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Qualidade</h4>
@@ -160,7 +170,7 @@ const App: React.FC = () => {
 
                 {/* Item 2 */}
                  <div className="flex flex-col items-center gap-2">
-                    <div className="p-2.5 bg-gray-50 rounded-full mb-0.5 shadow-sm">
+                    <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <UsersIcon className="w-5 h-5 text-gray-700" />
                     </div>
                     <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Atendimento</h4>
@@ -169,7 +179,7 @@ const App: React.FC = () => {
 
                 {/* Item 3 */}
                  <div className="flex flex-col items-center gap-2">
-                    <div className="p-2.5 bg-gray-50 rounded-full mb-0.5 shadow-sm">
+                    <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <ScissorsIcon className="w-5 h-5 text-gray-700" />
                     </div>
                     <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Produção</h4>
@@ -178,7 +188,7 @@ const App: React.FC = () => {
 
                 {/* Item 4 */}
                  <div className="flex flex-col items-center gap-2">
-                    <div className="p-2.5 bg-gray-50 rounded-full mb-0.5 shadow-sm">
+                    <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <TruckIcon className="w-5 h-5 text-gray-700" />
                     </div>
                     <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Entrega</h4>
