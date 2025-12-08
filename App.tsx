@@ -19,6 +19,7 @@ import {
 const App: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ModalType | null>(null);
   const [rating, setRating] = useState(0);
+  const [isLogoZooming, setIsLogoZooming] = useState(false);
 
   const handleRatingSelect = (rate: number) => {
     setRating(rate);
@@ -38,6 +39,19 @@ const App: React.FC = () => {
     setActiveModal(modal);
   }, []);
 
+  const handleLogoClick = useCallback(() => {
+    setIsLogoZooming(true);
+    // Abre o modal no meio da animação de zoom (400ms)
+    setTimeout(() => {
+      openModal(ModalType.QuemSomos);
+    }, 400);
+
+    // Reseta o estado do zoom após a transição completar
+    setTimeout(() => {
+      setIsLogoZooming(false);
+    }, 1000);
+  }, [openModal]);
+
   const OrcamentoModalContent: React.FC = () => {
     const [nome, setNome] = useState('');
     const [servico, setServico] = useState('');
@@ -56,7 +70,7 @@ const App: React.FC = () => {
 
     return (
       <div className="flex flex-col gap-3 text-gray-900">
-        <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 text-center font-serif-display">Faça seu Orçamento</h3>
+        <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center">Faça seu Orçamento</h3>
         <p className="text-center text-gray-500 text-xs md:text-sm mb-2">Preencha os campos abaixo para agilizar seu atendimento.</p>
         <input type="text" placeholder="Seu Nome" value={nome} onChange={(e) => setNome(e.target.value)} className="bg-gray-100 border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition-all text-black placeholder-gray-400 text-sm" />
         <textarea placeholder="O que você precisa? (ex: 20 camisetas personalizadas)" value={servico} onChange={(e) => setServico(e.target.value)} className="bg-gray-100 border border-gray-300 rounded-lg p-3 w-full h-20 resize-none focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition-all text-black placeholder-gray-400 text-sm"></textarea>
@@ -80,7 +94,7 @@ const App: React.FC = () => {
 
     return (
         <div className="flex flex-col gap-4 text-gray-900 items-center">
-            <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 font-serif-display">Contato do Desenvolvedor</h3>
+            <h3 className="text-xl font-bold text-gray-900">Contato do Desenvolvedor</h3>
             <p className="text-center text-sm text-gray-500">Esta mensagem será enviada para o desenvolvedor do site.</p>
             <a href="https://www.instagram.com/inteligenciarte.ia" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition-colors font-medium">
                 @inteligenciarte.ia
@@ -96,14 +110,14 @@ const App: React.FC = () => {
   return (
     <div className="relative bg-slate-50 min-h-[100dvh] w-full flex flex-col items-center justify-center p-3 md:p-4 text-gray-900 overflow-hidden">
       
-      {/* Animated Elegant Background */}
+      {/* Animated Clean Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        {/* Silver Blob (Left Top) */}
-        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-gray-200/60 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
-        {/* Gold/Champagne Blob (Right Bottom) */}
-        <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-amber-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
-        {/* Soft White/Silver Blob (Center) */}
-        <div className="absolute top-[40%] left-[30%] w-80 h-80 bg-slate-200/40 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
+        {/* Soft Gray Blob (Left Top) */}
+        <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-gray-200/70 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        {/* Soft Slate Blob (Right Bottom) */}
+        <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-slate-200/70 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+        {/* White/Bright Blob (Center) */}
+        <div className="absolute top-[40%] left-[30%] w-80 h-80 bg-white/60 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
       </div>
 
       <main className="w-full max-w-md mx-auto flex flex-col items-center justify-center space-y-4 z-10 animate-slide-up">
@@ -116,7 +130,10 @@ const App: React.FC = () => {
              <div className="absolute top-0 left-0 w-1/2 h-[200%] bg-gradient-to-r from-transparent via-white/60 to-transparent transform -skew-x-12 animate-shimmer"></div>
           </div>
 
-          <div className="relative z-10 cursor-pointer" onClick={() => openModal(ModalType.QuemSomos)}>
+          <div 
+            className={`relative z-10 cursor-pointer transition-all duration-700 ease-in-out transform ${isLogoZooming ? 'scale-125 opacity-100' : 'scale-100 hover:scale-[1.02]'}`} 
+            onClick={handleLogoClick}
+          >
             <img
               src="/logo.png"
               alt="Logo Chriss Confecções"
@@ -151,7 +168,7 @@ const App: React.FC = () => {
       {/* Modals */}
       <Modal isOpen={activeModal === ModalType.QuemSomos} onClose={closeModal}>
         <div className="text-gray-900 flex flex-col items-center text-center px-1">
-            <h3 className="text-2xl md:text-3xl font-bold mb-2 font-serif-display text-gray-800">Quem Somos</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-2 text-gray-800">Quem Somos</h3>
             <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-5"></div>
             
             <p className="text-gray-600 mb-6 font-light leading-relaxed max-w-sm text-sm md:text-base">
@@ -164,7 +181,7 @@ const App: React.FC = () => {
                     <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <DiamondIcon className="w-5 h-5 text-gray-700" />
                     </div>
-                    <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Qualidade</h4>
+                    <h4 className="font-semibold text-sm md:text-base text-gray-800">Qualidade</h4>
                     <p className="text-[10px] md:text-xs text-gray-500 font-light tracking-wide uppercase">Materiais nobres</p>
                 </div>
 
@@ -173,7 +190,7 @@ const App: React.FC = () => {
                     <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <UsersIcon className="w-5 h-5 text-gray-700" />
                     </div>
-                    <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Atendimento</h4>
+                    <h4 className="font-semibold text-sm md:text-base text-gray-800">Atendimento</h4>
                     <p className="text-[10px] md:text-xs text-gray-500 font-light tracking-wide uppercase">Personalizado</p>
                 </div>
 
@@ -182,7 +199,7 @@ const App: React.FC = () => {
                     <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <ScissorsIcon className="w-5 h-5 text-gray-700" />
                     </div>
-                    <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Produção</h4>
+                    <h4 className="font-semibold text-sm md:text-base text-gray-800">Produção</h4>
                     <p className="text-[10px] md:text-xs text-gray-500 font-light tracking-wide uppercase">Confecção própria</p>
                 </div>
 
@@ -191,7 +208,7 @@ const App: React.FC = () => {
                     <div className="p-2.5 bg-gray-50 border border-gray-100 rounded-full mb-0.5 shadow-sm">
                         <TruckIcon className="w-5 h-5 text-gray-700" />
                     </div>
-                    <h4 className="font-serif-display font-semibold text-sm md:text-base text-gray-800">Entrega</h4>
+                    <h4 className="font-semibold text-sm md:text-base text-gray-800">Entrega</h4>
                     <p className="text-[10px] md:text-xs text-gray-500 font-light tracking-wide uppercase">Compromisso</p>
                 </div>
             </div>
@@ -200,7 +217,7 @@ const App: React.FC = () => {
 
       <Modal isOpen={activeModal === ModalType.Localizacao} onClose={closeModal}>
         <div className="text-gray-900 text-center w-full max-w-lg">
-          <h3 className="text-xl md:text-2xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 font-serif-display">Nossa Localização</h3>
+          <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-900">Nossa Localização</h3>
           <p className="mb-4 text-xs md:text-sm text-gray-600">Rua Barão do Ponce, 120 - Uvaranas, Ponta Grossa - PR</p>
           <div className="aspect-video w-full rounded-lg overflow-hidden border-2 border-black/10 shadow-lg">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.338133456648!2d-50.1150174!3d-25.0904128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e81b6e993da005%3A0xa01ddc2a59e78de4!2zQ2hyaXNzIENvbmZlY8Onw7Vlcw!5e0!3m2!1spt-BR!2sbr!4v1763401207147!5m2!1spt-BR!2sbr" width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
@@ -214,7 +231,7 @@ const App: React.FC = () => {
 
       <Modal isOpen={activeModal === ModalType.Horario} onClose={closeModal}>
         <div className="text-gray-900 text-center">
-            <h3 className="text-xl md:text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 font-serif-display">Horário de Funcionamento</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-4 text-gray-900">Horário de Funcionamento</h3>
             <div className="text-gray-600 space-y-3 text-sm md:text-base">
                 <div className="flex justify-between border-b border-gray-200 py-2">
                     <span>Segunda a Sexta</span>
@@ -238,7 +255,7 @@ const App: React.FC = () => {
 
       <Modal isOpen={activeModal === ModalType.Avaliacao} onClose={closeModal}>
         <div className="text-gray-900 text-center">
-            <h3 className="text-xl md:text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 font-serif-display">Sua opinião é importante!</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">Sua opinião é importante!</h3>
             <p className="text-gray-500 mb-6 text-sm">Como foi sua experiência conosco?</p>
             <Rating onRate={handleRatingSelect} />
         </div>
@@ -246,7 +263,7 @@ const App: React.FC = () => {
 
       <Modal isOpen={activeModal === ModalType.FeedbackRuim} onClose={closeModal}>
         <div className="text-gray-900 text-center">
-          <h3 className="text-xl md:text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 font-serif-display">Que pena!</h3>
+          <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">Que pena!</h3>
           <p className="text-gray-500 mb-6 text-sm">Conte-nos como podemos melhorar. Sua opinião é valiosa.</p>
           <form action="https://formsubmit.co/SEU_EMAIL_AQUI" method="POST" className="flex flex-col gap-4">
              {/* Replace SEU_EMAIL_AQUI with your actual email address */}
